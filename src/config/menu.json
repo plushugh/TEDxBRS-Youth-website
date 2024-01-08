@@ -1,0 +1,45 @@
+{
+  "main": [
+    {
+      "name": "About TEDx",
+      "url": "/about"
+    },
+    {
+      "name": "Speakers",
+      "url": "/speakers"
+    },
+    {
+      "name": "The Team",
+      "url": "/team"
+    },
+    {
+      "name": "Extra",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Contact",
+          "url": "/contact"
+        },
+        {
+          "name": "Categories",
+          "url": "/categories"
+        },
+        {
+          "name": "Tags",
+          "url": "/tags"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Privacy Policy",
+      "url": "/privacy-policy"
+    }
+  ]
+}

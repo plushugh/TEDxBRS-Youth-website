@@ -1,0 +1,91 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+
+interface Homepage {
+  upcoming: {
+    title: string;
+    content: string;
+    date: string;
+    venue: {
+      country: string;
+      location: string;
+    };
+    speakers: {
+      image: string;
+      name: string;
+      title: string;
+    }[];
+  };
+  about: {
+    title: string;
+    content: string;
+  };
+}
+
+const homepage = await getEntry("homepage", "-index");
+const { upcoming, about }: Homepage = homepage.data;
+---
+
+<Base>
+  <!-- Banner -->
+  <section class="section pt-14"></section>
+  <div class="container">
+    <div class="row justify-center">
+      <div class="mb-16 col-11 lg:col-7">
+        <!-- overline -->
+        <p
+          class="mb-4 text-sm font-bold text-gray-500 dark:text-gray-400 uppercase"
+        >
+          UPCOMING EVENT | {upcoming.date}
+          <h1 set:html={markdownify(upcoming.title)} class="mb-4" />
+          <p class="mb-2">
+            {upcoming.venue.location}, {upcoming.venue.country}
+          </p>
+          <p set:html={markdownify(upcoming.content)} class="mb-8" />
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- /Banner -->
+
+  <!-- Speakers -->
+  <section class="section">
+    <div class="container">
+      <h2 class="mb-16 text-4xl font-bold text-center">Speakers</h2>
+      <div
+        class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 place-items-center"
+      >
+        {
+          upcoming.speakers.map(({ image, name, title }) => (
+            <div class="flex flex-col">
+              <div class="">
+                <img src={image} alt={name} />
+              </div>
+              <div class="py-4">
+                <p class="text-xl font-bold text-center">{name}</p>
+                <p class="text-center">{title}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <!-- /Speakers -->
+
+    <!-- About -->
+    <section class="section">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="mb-16 col-11 lg:col-7">
+            <h2 class="mb-4 text-4xl font-bold">{about.title}</h2>
+            <p class="mb-8">
+              {about.content}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</Base>
